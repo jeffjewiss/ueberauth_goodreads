@@ -15,10 +15,10 @@ defmodule Ueberauth.Strategy.Goodreads do
   Handles initial request for Goodreads authentication.
   """
   def handle_request!(conn) do
-    token = Goodreads.OAuth.request_token!([], [redirect_uri: callback_url(conn)])
+    token = Goodreads.OAuth2.request_token!([], [redirect_uri: callback_url(conn)])
     conn
     |> put_session(:goodreads_token, token)
-    |> redirect!(Goodreads.OAuth.authorize_url!(token))
+    |> redirect!(Goodreads.OAuth2.authorize_url!(token))
   end
 
   @doc """
@@ -26,7 +26,7 @@ defmodule Ueberauth.Strategy.Goodreads do
   """
   def handle_callback!(%Plug.Conn{params: %{"authorize" => oauth_verifier}} = conn) do
     token = get_session(conn, :goodreads_token)
-    case Goodreads.OAuth.access_token(token, oauth_verifier) do
+    case Goodreads.OAuth2.access_token(token, oauth_verifier) do
       {:ok, access_token} -> fetch_user(conn, access_token)
       {:error, error} -> set_errors!(conn, [error(error.code, error.reason)])
     end
@@ -95,7 +95,7 @@ defmodule Ueberauth.Strategy.Goodreads do
 
   defp fetch_user(conn, token) do
     params = [include_entities: false, skip_status: true, include_email: true]
-    case Goodreads.OAuth.get("/api/auth_user", params, token) do
+    case Goodreads.OAuth2.get("/api/auth_user", params, token) do
       {:ok, {{_, 401, _}, _, _}} ->
         set_errors!(conn, [error("token", "unauthorized")])
       {:ok, {{_, status_code, _}, _, body}} when status_code in 200..399 ->

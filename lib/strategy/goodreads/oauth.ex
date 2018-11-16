@@ -1,4 +1,4 @@
-defmodule Ueberauth.Strategy.Goodreads.OAuth do
+defmodule Ueberauth.Strategy.Goodreads.OAuth2 do
   @moduledoc """
   OAuth1 for Goodreads.
   Add `consumer_key` and `consumer_secret` to your configuration:

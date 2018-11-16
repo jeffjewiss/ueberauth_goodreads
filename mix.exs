@@ -27,7 +27,7 @@ defmodule UeberauthGoodreads.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger, :httpoison, :oauth, :ueberauth]]
+    [extra_applications: [:logger, :httpoison, :oauth2, :ueberauth]]
   end
 
   # Dependencies can be Hex packages:
@@ -42,7 +42,7 @@ defmodule UeberauthGoodreads.Mixfile do
   defp deps do
     [
       {:httpoison, "~> 1.4"},
-      {:oauth, github: "tim/erlang-oauth", only: [:dev, :test]},
+      {:oauth2, "~> 0.8"},
       {:poison, "~> 3.0 or ~> 4.0"},
       {:ueberauth, "~> 0.5"},
       {:sweet_xml, "~> 0.6.5"},
