@@ -41,12 +41,12 @@ defmodule UeberauthGoodreads.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:httpoison, "~> 0.11"},
+      {:httpoison, "~> 1.4"},
       {:oauth, github: "tim/erlang-oauth", only: [:dev, :test]},
-      {:poison, "~> 1.3 or ~> 2.0"},
-      {:ueberauth, "~> 0.3"},
+      {:poison, "~> 3.0 or ~> 4.0"},
+      {:ueberauth, "~> 0.5"},
       {:sweet_xml, "~> 0.6.5"},
-      {:credo, "~> 0.6.1", only: [:dev, :test]},
+      {:credo, "~> 0.10", only: [:dev, :test]},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
